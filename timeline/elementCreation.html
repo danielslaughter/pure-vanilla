@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+		<script>
+			var el = [];
+			function jq() {
+				for (var i=0;i<100;i++) {
+					el[i] = $('<div>');
+					el[i].html('Hello World');
+					$(document.body).append(el[i]);
+				}
+			};
+			function vj() {
+				for (var i=0;i<100;i++) {
+					el[i] = document.createElement('div');
+					el[i].appendChild(document.createTextNode('Hello World'));
+					document.body.appendChild(el[i]);
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<div id="test">Hello World</div>
+		<button onclick="jq()">jQuery</button>
+		<button onclick="vj()">Vanilla Javascript</button>
+	</body>
+</html>
