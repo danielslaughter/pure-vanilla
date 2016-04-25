@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="js/lodash.js"></script>
+		<script src="js/platform.js"></script>
+		<script src="js/benchmark.js"></script>
+		<script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+		<script>
+			function load() {
+				var suite = new Benchmark.Suite;
+				// add tests
+				suite.add('jQuery#A', function() {
+					$('#test');
+				});
+				suite.add('jQuery#B', function() {
+					$(document.getElementById('test'));
+				});
+				suite.add('PureVanilla', function() {
+					document.getElementById('test');
+				});
+				// add listeners
+				suite.on('start', function() {
+					document.body.innerHTML = '<div id="test">Hello World</div>';
+				});
+				suite.on('complete', function() {
+					document.body.innerHTML = '';
+				});
+				suite.on('cycle', function(event) {
+					console.log(String(event.target));
+				});
+				suite.on('complete', function() {
+					console.log('Fastest is ' + this.filter('fastest').map('name'));
+				});
+				// run async
+				suite.run({ 'async': true });
+			};
+		</script>
+	</head>
+	<body onload="load()">
+		
+	</body>
+</html>

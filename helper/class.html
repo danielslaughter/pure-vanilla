@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style type="text/css">
+			.myClass {
+				background: #FFA;
+				font-weight: bold;
+			}
+		</style>
+		<script src="helper.min.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<h1>Classes</h1>
+		<span id="test">Hello World</span>
+		<br />
+		<button onclick="helper.toggleClass(document.getElementById('test'), 'myClass')">Toggle Class</button>
+		<button onclick="helper.addClass(document.getElementById('test'), 'myClass')">Add Class</button>
+		<button onclick="helper.removeClass(document.getElementById('test'), 'myClass')">Remove Class</button>
+		<h1>AJAX</h1>
+		<textarea id="results" cols="45" rows="10"></textarea>
+		<br />
+		<button onclick="helper.ajax('class.html', function(r) {document.getElementById('results').innerHTML += r})">Ajax</button>
+		<button onclick="helper.empty(document.getElementById('results'))">Empty</button>
+	</body>
+</html>

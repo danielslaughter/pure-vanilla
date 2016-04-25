@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="js/lodash.js"></script>
+		<script src="js/platform.js"></script>
+		<script src="js/benchmark.js"></script>
+		<script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+		<script>
+			function load() {
+				var suite = new Benchmark.Suite;
+				// add tests
+				suite.add('jQuery', function() {
+					var el = $('.selected');
+				});
+				suite.add('PureVanilla#A', function() {
+					var el = document.querySelectorAll('.selected');
+				});
+				suite.add('PureVanilla#B', function() {
+					var el = document.getElementsByClassName('selected');
+				});
+				suite.add('PureVanilla#C', function() {
+					var all = document.getElementsByTagName('*'),
+						el = [],
+						i = 0;
+					for (;i<all.length;i++) {
+						(' ' + all[i].className + ' ').indexOf(' selected ') == -1 && el.push(all[i]);
+					}
+				});
+				// add listeners
+				suite.on('start', function() {
+					document.body.innerHTML = '<ul><li>1</li><li class="selected">2</li><li>3</li></ul>';
+				});
+				suite.on('complete', function() {
+					document.body.innerHTML = '';
+				});
+				suite.on('cycle', function(event) {
+					console.log(String(event.target));
+				});
+				suite.on('complete', function() {
+					console.log('Fastest is ' + this.filter('fastest').map('name'));
+				});
+				// run async
+				suite.run({ 'async': true });
+			};
+		</script>
+	</head>
+	<body onload="load()">
+		
+	</body>
+</html>

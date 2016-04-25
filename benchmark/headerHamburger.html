@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="js/lodash.js"></script>
+		<script src="js/platform.js"></script>
+		<script src="js/benchmark.js"></script>
+		<script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+		<script>
+			function load() {
+				var suite = new Benchmark.Suite;
+				// add tests
+				suite.add('jQuery', function() {
+					var header = $('.header').first(),
+						div = $('<div>', {
+							'class': 'hamburger',
+							'css': { 'color': '#00F' }
+						}).append('Menu');
+					header.append(div);
+				});
+				suite.add('PureVanilla#A', function() {
+					var header = document.querySelector('.header'),
+						div = document.createElement('div');
+					div.className = 'hamburger';
+					div.style.color = '#00F';
+					div.innerHTML = 'Menu';
+					header.appendChild(div);
+				});
+				// add listeners
+				suite.on('start', function() {
+					document.body.innerHTML = '<div class="header"></div><div class="body"><span class="header"></span></div><div class="footer"></div>';
+				});
+				suite.on('complete', function() {
+					document.body.innerHTML = '';
+				});
+				suite.on('cycle', function(event) {
+					console.log(String(event.target));
+				});
+				suite.on('complete', function() {
+					console.log('Fastest is ' + this.filter('fastest').map('name'));
+				});
+				// run async
+				suite.run({ 'async': true });
+			};
+		</script>
+	</head>
+	<body onload="load()">
+		
+	</body>
+</html>
