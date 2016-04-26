@@ -19,7 +19,10 @@
 		<h1>AJAX</h1>
 		<textarea id="results" cols="45" rows="10"></textarea>
 		<br />
-		<button onclick="helper.ajax('class.html', function(r) {document.getElementById('results').innerHTML += r})">Ajax</button>
+		<button onclick="helper.ajax('index.html', function(r) {document.getElementById('results').innerHTML += r})">Ajax</button>
 		<button onclick="helper.empty(document.getElementById('results'))">Empty</button>
+		<h1>Event</h1>
+		<button id="btnEvent">Event?</button>
+		<button onclick="helper.onEvent('click', document.getElementById('btnEvent'), function() { alert('Yes!'); })">Add Event</button>
 	</body>
 </html>

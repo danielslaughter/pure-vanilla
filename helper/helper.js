@@ -32,13 +32,19 @@ var helper = {
 		     if (this.readyState !== 4) {
 			      return;   
 			 } else if (this.status >= 200 && this.status < 400) {
-		          var response = this.responseText;
-		          success != undefined && success(response);
+		          success != undefined && success(this.responseText);
 		     } else {
 		          error != undefined && error();
 		     }
 		};
 		request.send();
 		request = null;
+	},
+	'onEvent': function(e, el, fn) {
+		if (el.addEventListener) {
+			el.addEventListener(e, fn, false);
+		} else {
+			el.attachEvent('on' + e, fn);
+		}
 	}
 };
